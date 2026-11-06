@@ -1,0 +1,39 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "poc-gpa-kms-client-side-solution",
+    "id": "b707882d-daf9-4134-8087-4cc7ff638520",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.24.1"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "poc-gpa-kms description"
+      },
+      "longDescription": {
+        "default": "poc-gpa-kms description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "poc-gpa-kms Feature",
+        "description": "The feature that activates elements of the poc-gpa-kms solution.",
+        "id": "f6fdeb87-f60d-4beb-bce7-d3091c3cd916",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/poc-gpa-kms.sppkg"
+  }
+}

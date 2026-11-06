@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "kms-dashboard-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/kmsDashboard/KmsDashboardWebPart.js",
+          "manifest": "./src/webparts/kmsDashboard/KmsDashboardWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "KmsDashboardWebPartStrings": "lib/webparts/kmsDashboard/loc/{locale}.js"
+  }
+}
