@@ -24,6 +24,7 @@
     "properties": {
       "title": "All wiki spaces",
       "listName": "Wiki Spaces",
+      "settingsListName": "KMS Settings",
       "showSearch": true,
       "showFilter": true,
       "openInNewTab": false

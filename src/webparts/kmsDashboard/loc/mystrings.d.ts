@@ -3,6 +3,7 @@ declare interface IKmsDashboardWebPartStrings {
   SettingsGroupName: string;
   TitleFieldLabel: string;
   ListNameFieldLabel: string;
+  SettingsListNameFieldLabel: string;
   ShowSearchLabel: string;
   ShowFilterLabel: string;
   OpenInNewTabLabel: string;

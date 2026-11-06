@@ -4,6 +4,7 @@ define([], function() {
     "SettingsGroupName": "Settings",
     "TitleFieldLabel": "Section title",
     "ListNameFieldLabel": "SharePoint list name",
+    "SettingsListNameFieldLabel": "Site settings list (key/value)",
     "ShowSearchLabel": "Show search box",
     "ShowFilterLabel": "Show category filters",
     "OpenInNewTabLabel": "Open wiki space in a new tab",

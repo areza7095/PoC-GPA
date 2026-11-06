@@ -15,12 +15,15 @@ import { SPFx, type ISPFXContext } from '@pnp/sp/behaviors/spfx';
 import * as strings from 'KmsDashboardWebPartStrings';
 import KmsDashboard from './components/KmsDashboard';
 import { IKmsDashboardProps } from './components/IKmsDashboardProps';
+import { getSiteSettings } from './services/SiteChromeService';
+import { applySiteChrome } from './services/applySiteChrome';
 
 initializeIcons();
 
 export interface IKmsDashboardWebPartProps {
   title: string;
   listName: string;
+  settingsListName: string;
   showSearch: boolean;
   showFilter: boolean;
   openInNewTab: boolean;
@@ -31,6 +34,8 @@ export default class KmsDashboardWebPart extends BaseClientSideWebPart<IKmsDashb
   private _isDarkTheme: boolean = false;
   private _root: Root | undefined;
   private _sp!: SPFI; // created lazily, see createSp()
+  private _chromeCleanup: (() => void) | undefined;
+  private _chromeAppliedFor: string | undefined;
 
   private createSp(): SPFI {
     // SPFx() expects the web part context: it reads context.pageContext.web.absoluteUrl
@@ -38,10 +43,41 @@ export default class KmsDashboardWebPart extends BaseClientSideWebPart<IKmsDashb
     return spfi().using(SPFx(this.context as unknown as ISPFXContext));
   }
 
+  /**
+   * Loads the site chrome settings (sidebar/header/logo) from the settings list
+   * and (re)applies the injected stylesheet. Runs again when the list name
+   * changes in the property pane.
+   */
+  private ensureSiteChrome(): void {
+    const listName = (this.properties.settingsListName || 'KMS Settings').trim();
+    if (this._chromeAppliedFor === listName) {
+      return;
+    }
+    this._chromeAppliedFor = listName;
+
+    this._chromeCleanup?.();
+    this._chromeCleanup = undefined;
+
+    getSiteSettings(this._sp, listName)
+      .then((settings): void => {
+        // Guard against a stale response after a property change/dispose.
+        if (this._chromeAppliedFor !== listName) {
+          return;
+        }
+        this._chromeCleanup = applySiteChrome(settings);
+      })
+      .catch((err: Error): void => {
+        // Missing list / no permission: the page simply keeps its default look.
+        console.warn('[Wiki Space Gallery] site settings skipped:', err?.message);
+      });
+  }
+
   public render(): void {
     if (!this._sp) {
       this._sp = this.createSp();
     }
+
+    this.ensureSiteChrome();
 
     const element: React.ReactElement<IKmsDashboardProps> = React.createElement(
       KmsDashboard,
@@ -88,6 +124,8 @@ export default class KmsDashboardWebPart extends BaseClientSideWebPart<IKmsDashb
   }
 
   protected onDispose(): void {
+    this._chromeCleanup?.();
+    this._chromeCleanup = undefined;
     this._root?.unmount();
     this._root = undefined;
   }
@@ -112,6 +150,9 @@ export default class KmsDashboardWebPart extends BaseClientSideWebPart<IKmsDashb
                 }),
                 PropertyPaneTextField('listName', {
                   label: strings.ListNameFieldLabel
+                }),
+                PropertyPaneTextField('settingsListName', {
+                  label: strings.SettingsListNameFieldLabel
                 }),
                 PropertyPaneToggle('showSearch', {
                   label: strings.ShowSearchLabel,

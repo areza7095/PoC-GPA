@@ -3,7 +3,7 @@
   "solution": {
     "name": "poc-gpa-kms-client-side-solution",
     "id": "b707882d-daf9-4134-8087-4cc7ff638520",
-    "version": "1.0.0.0",
+    "version": "1.0.0.6",
     "includeClientSideAssets": true,
     "skipFeatureDeployment": true,
     "developer": {
@@ -29,7 +29,7 @@
         "title": "poc-gpa-kms Feature",
         "description": "The feature that activates elements of the poc-gpa-kms solution.",
         "id": "f6fdeb87-f60d-4beb-bce7-d3091c3cd916",
-        "version": "1.0.0.0"
+        "version": "1.0.0.5"
       }
     ]
   },
