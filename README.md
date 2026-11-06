@@ -80,7 +80,7 @@ Package hasil build: `sharepoint/solution/poc-gpa-kms.sppkg` → upload ke App C
 
 | Solution | Author(s) |
 | --- | --- |
-| poc-gpa-kms | GPA KMS PoC |
+| poc-gpa-kms | Ahmad Reza A |
 
 ## Version history
 
